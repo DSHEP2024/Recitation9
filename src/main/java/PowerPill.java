@@ -80,4 +80,22 @@ public class PowerPill
         this.name = name;
     }
 
+    @Override
+    public String toString() {
+        return "PowerPill{" +
+                "powerSupply=" + powerSupply +
+                ", name='" + name + '\'' +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof PowerPill powerPill)) return false;
+        return powerSupply == powerPill.powerSupply && Objects.equals(name, powerPill.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(powerSupply, name);
+    }
 }

@@ -73,7 +73,15 @@ public class Grok
      */
     public void setPowerLevel(int powerLevel)
     {
-        // TODO: replace this line with your code
+        if (powerLevel > MAX_POWER_LEVEL){
+            this.powerLevel = MAX_POWER_LEVEL;
+
+        } else if (powerLevel < 0){
+            this.powerLevel = 0;
+
+        } else {
+            this.powerLevel = powerLevel;
+        }
     }
 
     /*
@@ -96,6 +104,10 @@ public class Grok
     public void takePowerPill()
     {
         // TODO: replace this line with your code
+        if (numOfPowerPills > 0){
+            numOfPowerPills -= 1;
+            setPowerLevel(getPowerLevel()+powerPill[numOfPowerPills].getPower());
+        }
     }
 
     /**
@@ -115,6 +127,27 @@ public class Grok
          */
 
         // TODO: replace this line with your code
+        PowerPill pillToIngest = null;
+
+        for(int index = 0; index < powerPill.length; index++){
+            if (powerPill[index] != null && powerPill[index].getName().equals(name)) {
+                pillToIngest = powerPill[index];
+
+                // Add power to the Grok's power level
+                setPowerLevel(getPowerLevel() + pillToIngest.getPower());
+
+                // Shift the pills down to remove the used pill
+                for (int i = index; i < numOfPowerPills - 1; i++) {
+                    powerPill[i] = powerPill[i + 1];
+                }
+
+                // Null out the last pill slot
+                powerPill[numOfPowerPills - 1] = null;
+                numOfPowerPills--; // Decrease the count
+                break; // Exit the loop after taking the pill
+            }
+
+        }
     }
 
     /*
